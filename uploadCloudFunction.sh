@@ -1,0 +1,1 @@
+"/Applications/wechatwebdevtools.app/Contents/MacOS/cli" cloud functions deploy --e cloud1-9gm8frfcead0368e --n quickstartFunctions --r --project "/Users/mer/Documents/GitHub/zha-jin-hua" --report_first --report
