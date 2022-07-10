@@ -1,3 +1,4 @@
 <view class="page-index">
-  <view>Index</view>
+  <input value="{{roomCode}}" type="text" placeholder="输入房间号" bindinput="roomCodeInput" type="number" focus maxlength="4" />
+  <button bindtap="login" disabled="{{roomCode.length !== 4}}">开始</button>
 </view>
