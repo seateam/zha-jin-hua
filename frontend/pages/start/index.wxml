@@ -3,7 +3,35 @@
   <view class="name">{{user.name}}</view>
 </view>
 <view class="pokers">
-  <view class="poker"></view>
-  <view class="poker"></view>
-  <view class="poker"></view>
+  <view class="poker">
+    <view class="top">
+      <view>A</view>
+      <view>♥</view>
+    </view>
+    <view class="bottom">
+      <view>A</view>
+      <view>♥</view>
+    </view>
+  </view>
+  <view class="poker">
+    <view class="top">
+      <view>K</view>
+      <view>♣</view>
+    </view>
+    <view class="bottom">
+      <view>K</view>
+      <view>♣</view>
+    </view>
+  </view>
+  <view class="poker">
+    <view class="top">
+      <view>J</view>
+      <view>♦</view>
+    </view>
+    <view class="bottom">
+      <view>J</view>
+      <view>♦</view>
+    </view>
+  </view>
 </view>
+<view class="start">发 牌</view>

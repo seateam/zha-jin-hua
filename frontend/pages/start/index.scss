@@ -14,12 +14,48 @@
 .pokers {
   margin-top: 44px;
   display: flex;
-  width: 100%;
-  justify-content: space-around;
 
   .poker {
     width: 114px;
     height: 152px;
-    border: 1px solid red;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #e7e7e7;
+    position: relative;
+    .top,
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .top {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+    }
+    .bottom {
+      transform: rotate(180deg);
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+    }
   }
+  .poker + .poker {
+    margin-left: 6px;
+  }
+}
+.start {
+  margin-top: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 20px;
+}
+.start:active {
+  background: #e7e7e7;
 }
