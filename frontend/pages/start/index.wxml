@@ -1,6 +1,9 @@
-<view class="page-start">
-  <view class="user" wx:if="{{user}}">
-    <image class="avatar" src="{{user.avatar}}" mode="aspectFill"></image>
-    <view class="name">{{user.name}}</view>
-  </view>
+<view class="user" wx:if="{{user}}">
+  <image class="avatar" src="{{user.avatar}}" mode="aspectFill"></image>
+  <view class="name">{{user.name}}</view>
+</view>
+<view class="pokers">
+  <view class="poker"></view>
+  <view class="poker"></view>
+  <view class="poker"></view>
 </view>

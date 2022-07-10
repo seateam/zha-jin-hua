@@ -3,6 +3,7 @@ const app = getApp()
 Page({
   data: {
     roomCode: '',
+    focus: true,
   },
   roomCodeInput(event) {
     const v = event.detail.value.replaceAll(/\D/g, '')
@@ -11,6 +12,10 @@ Page({
   },
   login() {
     const roomCode = this.data.roomCode
+    if (roomCode.length !== 4) {
+      this.setData({ focus: true })
+      return
+    }
     wx.getUserProfile({
       desc: '用于完善信息资料',
     })

@@ -1,1 +1,1 @@
-.page-start .user{display:flex;flex-direction:column;align-items:center}.page-start .user .avatar{border-radius:50%;width:60px;height:60px}.page-start .user .name{margin-top:4px}
+.user{display:flex;flex-direction:column;align-items:center}.user .avatar{border-radius:50%;width:60px;height:60px}.user .name{margin-top:4px}.pokers{margin-top:44px;display:flex;width:100%;justify-content:space-around}.pokers .poker{width:114px;height:152px;border:1px solid red}
