@@ -55,7 +55,16 @@ Page({
           },
         ],
       }
-      console.log('🌊', room)
+      wx.cloud
+        .callFunction({
+          name: 'seaCloud',
+          data: {
+            type: 'createRoom',
+            room,
+          },
+        })
+        .then((resp) => {})
+        .catch((e) => {})
     }
   },
   formatColor(suit) {

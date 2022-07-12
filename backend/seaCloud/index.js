@@ -1,8 +1,9 @@
 const cloud = require('wx-server-sdk')
-
 cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV,
+  // env: cloud.DYNAMIC_CURRENT_ENV,
+  env: 'cloud1-9gm8frfcead0368e',
 })
+const db = cloud.database()
 
 const api = {
   async getMiniProgramCode(event, context) {
@@ -37,6 +38,18 @@ const api = {
       appid: wxContext.APPID,
       unionid: wxContext.UNIONID,
     }
+  },
+  async createRoom(event, context) {
+    // 创建集合
+    try {
+      await db.createCollection('rooms')
+    } catch (error) {}
+    await db.collection('rooms').add({
+      data: {
+        _id: event.room.code,
+        ...event.room,
+      },
+    })
   },
 }
 

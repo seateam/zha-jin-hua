@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/home/index",
     "pages/index/index",
     "pages/start/index",
+    "pages/home/index",
     "pages/getOpenId/index",
     "pages/getMiniProgramCode/index",
     "pages/deployService/index",
