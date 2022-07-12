@@ -1,10 +1,10 @@
 {
-  "name": "quickstartFunctions",
+  "name": "sea-cloud",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "yarn": "yarn install"
   },
   "author": "",
   "license": "ISC",

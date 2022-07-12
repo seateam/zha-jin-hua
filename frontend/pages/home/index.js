@@ -130,7 +130,7 @@ Page({
     })
     wx.cloud
       .callFunction({
-        name: 'quickstartFunctions',
+        name: 'seaCloud',
         config: {
           env: this.data.selectedEnv.envId,
         },

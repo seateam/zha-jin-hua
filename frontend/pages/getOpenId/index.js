@@ -1,5 +1,4 @@
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -7,46 +6,48 @@ Page({
     showUploadTip: false,
     haveGetOpenId: false,
     envId: '',
-    openId: ''
+    openId: '',
   },
 
   onLoad(options) {
     this.setData({
-      envId: options.envId
-    });
+      envId: options.envId,
+    })
   },
 
   getOpenId() {
     wx.showLoading({
       title: '',
-    });
-   wx.cloud.callFunction({
-      name: 'quickstartFunctions',
-      config: {
-        env: this.data.envId
-      },
-      data: {
-        type: 'getOpenId'
-      }
-    }).then((resp) => {
-      this.setData({
-        haveGetOpenId: true,
-        openId: resp.result.openid
-      });
-     wx.hideLoading();
-   }).catch((e) => {
-      this.setData({
-        showUploadTip: true
-      });
-     wx.hideLoading();
-    });
+    })
+    wx.cloud
+      .callFunction({
+        name: 'seaCloud',
+        config: {
+          env: this.data.envId,
+        },
+        data: {
+          type: 'getOpenId',
+        },
+      })
+      .then((resp) => {
+        this.setData({
+          haveGetOpenId: true,
+          openId: resp.result.openid,
+        })
+        wx.hideLoading()
+      })
+      .catch((e) => {
+        this.setData({
+          showUploadTip: true,
+        })
+        wx.hideLoading()
+      })
   },
 
   clearOpenId() {
     this.setData({
       haveGetOpenId: false,
-      openId: ''
-    });
-  }
-
-});
+      openId: '',
+    })
+  },
+})

@@ -21,7 +21,7 @@ App({
     }
     wx.cloud
       .callFunction({
-        name: 'quickstartFunctions',
+        name: 'seaCloud',
         data: {
           type: 'getOpenId',
         },
