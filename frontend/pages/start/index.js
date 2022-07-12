@@ -4,7 +4,11 @@ import pockersDict from './pockers'
 Page({
   data: {
     roomCode: '',
-    user: null,
+    user: {
+      openid: '',
+      name: '',
+      avatar: '',
+    },
     pockersList: [],
     pockers: [{}, {}, {}],
   },
@@ -12,6 +16,10 @@ Page({
     return parseInt(Math.random() * (b - a) + a)
   },
   licensing() {
+    if (this.data.pockersList.length < 3) {
+      wx.showToast({ title: '牌已发完', icon: 'none' })
+      return
+    }
     const pockers = []
     for (let i = 0; i < 3; i++) {
       const i = this.random(0, this.data.pockersList.length)
@@ -25,12 +33,30 @@ Page({
         color: this.formatColor(suit),
       })
     }
-    this.setData({
-      pockers,
-    })
+
+    return pockers
   },
   start() {
-    this.licensing()
+    const pockers = this.licensing()
+    if (pockers) {
+      this.setData({
+        pockers,
+      })
+      const { openid, name, avatar } = this.data.user
+      const room = {
+        code: this.data.roomCode,
+        pockersList: this.data.pockersList,
+        users: [
+          {
+            openid,
+            name,
+            avatar,
+            pockers,
+          },
+        ],
+      }
+      console.log('🌊', room)
+    }
   },
   formatColor(suit) {
     const dict = {
@@ -58,6 +84,7 @@ Page({
         roomCode,
         pockersList: pockersDict,
         user: {
+          openid: openid,
           name: nickName,
           avatar: avatarUrl,
         },
