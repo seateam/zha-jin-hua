@@ -22,11 +22,8 @@ Page({
     wx.cloud
       .callFunction({
         name: 'seaCloud',
-        config: {
-          env: this.data.envId,
-        },
         data: {
-          type: 'getOpenId',
+          type: 'getRoom',
         },
       })
       .then((resp) => {
