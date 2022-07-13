@@ -19,14 +19,11 @@ App({
     wx.cloud
       .callFunction({
         name: 'seaCloud',
-        data: {
-          type: 'getOpenId',
-        },
+        data: { type: 'getOpenId' },
       })
       .then((resp) => {
         this.globalData.openid = resp.result.openid
         this.globalData.appid = resp.result.appid
       })
-      .catch((e) => {})
   },
 })

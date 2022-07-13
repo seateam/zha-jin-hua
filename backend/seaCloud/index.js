@@ -1,3 +1,5 @@
+// https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database/init.html
+
 const cloud = require('wx-server-sdk')
 cloud.init({
   // env: cloud.DYNAMIC_CURRENT_ENV,
@@ -20,9 +22,12 @@ const api = {
     return upload.fileID
   },
   async getOpenId(event, context) {
+    // 创建集合
+    // try {
+    //   await db.createCollection('rooms')
+    // } catch (err) {}
     // 获取基础信息
     const wxContext = cloud.getWXContext()
-
     return {
       openid: wxContext.OPENID,
       appid: wxContext.APPID,
@@ -30,26 +35,23 @@ const api = {
     }
   },
   async getRoom(event, context) {
-    // 获取基础信息
-    const wxContext = cloud.getWXContext()
+    const rooms = db.collection('rooms')
+    const where = rooms.where({ _id: event.roomCode })
 
-    return {
-      openid: wxContext.OPENID,
-      appid: wxContext.APPID,
-      unionid: wxContext.UNIONID,
-    }
+    return await where.get()
   },
-  async createRoom(event, context) {
-    // 创建集合
-    try {
-      await db.createCollection('rooms')
-    } catch (error) {}
-    await db.collection('rooms').add({
-      data: {
-        _id: event.room.code,
-        ...event.room,
-      },
-    })
+  async updateRoom(event, context) {
+    const rooms = db.collection('rooms')
+    const where = rooms.where({ _id: event.room._id })
+    // 添加
+    let res
+    res = await where.get()
+    if (res.data.length) {
+      delete event.room._id
+      where.update({ data: event.room })
+    } else {
+      rooms.add({ data: event.room })
+    }
   },
 }
 

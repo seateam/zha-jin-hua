@@ -44,7 +44,7 @@ Page({
       })
       const { openid, name, avatar } = this.data.user
       const room = {
-        code: this.data.roomCode,
+        _id: this.data.roomCode,
         pockersList: this.data.pockersList,
         users: [
           {
@@ -59,12 +59,16 @@ Page({
         .callFunction({
           name: 'seaCloud',
           data: {
-            type: 'createRoom',
+            type: 'updateRoom',
             room,
           },
         })
-        .then((resp) => {})
-        .catch((e) => {})
+        .then((res) => {
+          console.log('🌊', res)
+        })
+        .catch((err) => {
+          console.log('🌊', err)
+        })
     }
   },
   formatColor(suit) {
