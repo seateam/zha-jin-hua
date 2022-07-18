@@ -39,7 +39,7 @@ const api = {
     const rooms = db.collection('rooms')
     const where = rooms.where({ _id: event.roomCode })
     const res = await where.get()
-    if (res?.data) {
+    if (res && res.data) {
       const list = res.data
       if (list.length === 1) {
         return list[0]

@@ -206,6 +206,7 @@ Page({
       // 房间信息
       this.initRoom(roomCode)
     } else {
+      console.log('error', { appid, openid, nickName, avatarUrl, roomCode })
       wx.navigateTo({
         url: `/pages/index/index`,
       })

@@ -22,9 +22,9 @@ App({
         data: { type: 'getOpenId' },
       })
       .then((resp) => {
-        // this.globalData.openid = resp.result.openid
+        this.globalData.openid = resp.result.openid
         // mock
-        this.globalData.openid = 'daxiao'
+        // this.globalData.openid = 'daxiao'
         this.globalData.appid = resp.result.appid
       })
   },
