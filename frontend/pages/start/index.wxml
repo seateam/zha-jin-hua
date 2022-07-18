@@ -1,9 +1,9 @@
-<view class="user" wx:if="{{user}}">
-  <image class="avatar" src="{{user.avatar}}" mode="aspectFill"></image>
-  <view class="name">{{user.name}}</view>
+<view class="user" wx:if="{{own}}">
+  <image class="avatar" src="{{own.avatar}}" mode="aspectFill"></image>
+  <view class="name">{{own.name}}</view>
 </view>
 <view class="pokers">
-  <view class="poker" wx:for="{{pockers}}" wx:key="index" style="color:{{item.color}}">
+  <view class="poker" wx:for="{{users[userIndex].pockers}}" wx:key="index" style="color:{{item.color}}">
     <view class="top">
       <view>{{item.point}}</view>
       <view>{{item.formatSuit}}</view>
@@ -14,8 +14,8 @@
     </view>
   </view>
 </view>
-<block wx:if="{{pockers[0].point}}">
-  <button wx:if="{{user.open === false}}" class="start" bindtap="open">开 牌</button>
+<block wx:if="{{users[userIndex].openid}}">
+  <button wx:if="{{user.pockers[0].open === false}}" class="start" bindtap="open">开 牌</button>
   <button wx:else class="start" disabled>等 待</button>
 </block>
 <button wx:else class="start" bindtap="start" disabled="{{!inited}}">发 牌</button>

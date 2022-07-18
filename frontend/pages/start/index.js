@@ -1,20 +1,29 @@
 const app = getApp()
 import pockersDict from './pockers'
+const dayjs = require('dayjs')
 
 Page({
   data: {
     roomCode: '',
     // 当前用户
-    user: {
+    own: {
       openid: '',
       name: '',
       avatar: '',
-      open: false,
     },
-    pockers: [{}, {}, {}],
+    // init
     inited: false,
     // 所有用户
-    users: [],
+    users: [
+      {
+        openid: '',
+        name: '',
+        avatar: '',
+        pockers: [{}, {}, {}],
+        date: 0,
+      },
+    ],
+    userIndex: 0,
     // 当前牌
     pockersList: [],
   },
@@ -46,9 +55,6 @@ Page({
   start() {
     const pockers = this.licensing()
     if (pockers) {
-      this.setData({
-        pockers,
-      })
       const { openid, name, avatar } = this.data.user
       const room = {
         _id: this.data.roomCode,
@@ -59,6 +65,7 @@ Page({
             name,
             avatar,
             pockers,
+            date: dayjs().unix(),
           },
         ],
       }
@@ -71,6 +78,9 @@ Page({
           },
         })
         .then((res) => {
+          this.setData({
+            pockers,
+          })
           wx.showToast({ title: '发牌成功', icon: 'none' })
         })
         .catch(() => {
@@ -125,11 +135,10 @@ Page({
       // 用户信息
       this.setData({
         roomCode,
-        user: {
+        own: {
           openid: openid,
           name: nickName,
           avatar: avatarUrl,
-          open: false,
         },
       })
       // 设置标题
@@ -155,31 +164,30 @@ Page({
       })
       .then((res) => {
         wx.hideLoading()
-
         const room = res.result
         if (room) {
           const { pockersList, users } = room
           this.setData({
             pockersList,
             users,
+            inited: true,
           })
-          this.initUser(users)
+
+          const index = users.findIndex((u) => u.openid === this.data.own.openid)
+          if (index !== -1) {
+            this.setData({
+              userIndex: index,
+            })
+          }
         } else {
           this.setData({
             pockersList: pockersDict,
-            users: [],
+            inited: true,
           })
         }
       })
-      .catch(() => {
+      .catch((err) => {
         wx.showToast({ title: '房间获取失败', icon: 'none' })
       })
-  },
-  initUser(users) {
-    const user = users.find((u) => u.openid === this.data.user.openid)
-    this.setData({
-      pockers: user.pockers,
-      inited: true,
-    })
   },
 })
