@@ -36,6 +36,7 @@ Page({
 
     return pockers
   },
+  // 发牌
   start() {
     const pockers = this.licensing()
     if (pockers) {

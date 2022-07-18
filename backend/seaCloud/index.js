@@ -44,8 +44,7 @@ const api = {
     const rooms = db.collection('rooms')
     const where = rooms.where({ _id: event.room._id })
     // 添加
-    let res
-    res = await where.get()
+    const res = await where.get()
     if (res.data.length) {
       delete event.room._id
       where.update({ data: event.room })
