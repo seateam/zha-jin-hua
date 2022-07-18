@@ -14,5 +14,8 @@
     </view>
   </view>
 </view>
-<button wx:if="{{pockers[0].point}}" class="start" bindtap="open">开 牌</button>
+<block wx:if="{{pockers[0].point}}">
+  <button wx:if="{{user.open === false}}" class="start" bindtap="open">开 牌</button>
+  <button wx:else class="start" disabled>等 待</button>
+</block>
 <button wx:else class="start" bindtap="start" disabled="{{!inited}}">发 牌</button>

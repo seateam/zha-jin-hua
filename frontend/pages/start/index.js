@@ -9,6 +9,7 @@ Page({
       openid: '',
       name: '',
       avatar: '',
+      open: false,
     },
     pockers: [{}, {}, {}],
     inited: false,
@@ -82,14 +83,22 @@ Page({
     wx.showModal({
       title: '是否要开牌？',
       content: '当所有人开牌，才能看到别人的',
-      success(res) {
+      success: (res) => {
         if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+          this.setData({
+            user: Object.assign(this.data.user, {
+              open: true,
+            }),
+          })
         }
       },
     })
+  },
+  refresh() {
+    wx.showLoading({
+      title: '刷新中',
+    })
+    this.initRoom(this.data.roomCode)
   },
   formatColor(suit) {
     const dict = {
@@ -120,6 +129,7 @@ Page({
           openid: openid,
           name: nickName,
           avatar: avatarUrl,
+          open: false,
         },
       })
       // 设置标题
@@ -144,6 +154,8 @@ Page({
         },
       })
       .then((res) => {
+        wx.hideLoading()
+
         const room = res.result
         if (room) {
           const { pockersList, users } = room
