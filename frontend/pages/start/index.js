@@ -216,4 +216,13 @@ Page({
         wx.showToast({ title: '房间获取失败', icon: 'none' })
       })
   },
+  look(event) {
+    const ok = this.data.users.findIndex((u) => !u.open) === -1
+    if (ok) {
+      const i = event.target.dataset.i
+      this.setData({
+        userIndex: i,
+      })
+    }
+  },
 })

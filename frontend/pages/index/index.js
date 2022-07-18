@@ -22,7 +22,9 @@ Page({
       .then((res) => {
         const { avatarUrl, nickName } = res.userInfo
         app.globalData.avatarUrl = avatarUrl
-        app.globalData.nickName = nickName
+        // app.globalData.nickName = nickName
+        // mock
+        app.globalData.nickName = '大校'
         wx.navigateTo({
           url: `/pages/start/index?roomCode=${roomCode}`,
         })

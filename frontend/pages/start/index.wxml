@@ -1,4 +1,4 @@
-<view class="user" wx:if="{{own}}">
+<view class="own" wx:if="{{own}}">
   <image class="avatar" src="{{own.avatar}}" mode="aspectFill"></image>
   <view class="name">{{own.name}}</view>
 </view>
@@ -19,3 +19,10 @@
   <button wx:else class="start" disabled>等 待</button>
 </block>
 <button wx:else class="start" bindtap="start" disabled="{{!inited}}">发 牌</button>
+<!-- users -->
+<view class="users" bindtap="look">
+  <view class="user {{userIndex === index ? 'active': ''}}" wx:for="{{users}}" wx:key="index" data-i="{{index}}">
+    <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+    <view class="name">{{item.name}}</view>
+  </view>
+</view>
