@@ -15,7 +15,7 @@
   </view>
 </view>
 <block wx:if="{{users[userIndex].openid}}">
-  <button wx:if="{{user.pockers[0].open === false}}" class="start" bindtap="open">开 牌</button>
+  <button wx:if="{{users[userIndex].open === false}}" class="start" bindtap="open">开 牌</button>
   <button wx:else class="start" disabled>等 待</button>
 </block>
 <button wx:else class="start" bindtap="start" disabled="{{!inited}}">发 牌</button>

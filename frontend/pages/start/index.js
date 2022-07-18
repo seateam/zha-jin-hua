@@ -55,19 +55,37 @@ Page({
   start() {
     const pockers = this.licensing()
     if (pockers) {
-      const { openid, name, avatar } = this.data.user
-      const room = {
-        _id: this.data.roomCode,
-        pockersList: this.data.pockersList,
-        users: [
-          {
+      const { openid, name, avatar } = this.data.own
+
+      const index = this.data.users.findIndex((u) => !u.openid)
+      if (index === -1) {
+        if (this.data.users.findIndex((u) => u.openid === openid) === -1) {
+          this.data.users.push({
             openid,
             name,
             avatar,
-            pockers,
             date: dayjs().unix(),
-          },
-        ],
+            pockers,
+            open: false,
+          })
+        } else {
+          wx.showToast({ title: '重复发牌', icon: 'none' })
+          return
+        }
+      } else {
+        this.data.users[index] = {
+          openid,
+          name,
+          avatar,
+          date: dayjs().unix(),
+          pockers,
+          open: false,
+        }
+      }
+      const room = {
+        _id: this.data.roomCode,
+        pockersList: this.data.pockersList,
+        users: this.data.users,
       }
       wx.cloud
         .callFunction({
@@ -79,7 +97,8 @@ Page({
         })
         .then((res) => {
           this.setData({
-            pockers,
+            users: this.data.users,
+            userIndex: index === -1 ? this.data.users.length - 1 : index,
           })
           wx.showToast({ title: '发牌成功', icon: 'none' })
         })
@@ -95,11 +114,25 @@ Page({
       content: '当所有人开牌，才能看到别人的',
       success: (res) => {
         if (res.confirm) {
-          this.setData({
-            user: Object.assign(this.data.user, {
-              open: true,
-            }),
-          })
+          this.data.users[this.data.userIndex].open = true
+          const room = {
+            _id: this.data.roomCode,
+            pockersList: this.data.pockersList,
+            users: this.data.users,
+          }
+          wx.cloud
+            .callFunction({
+              name: 'seaCloud',
+              data: {
+                type: 'updateRoom',
+                room,
+              },
+            })
+            .then(() => {
+              this.setData({
+                users: this.data.users,
+              })
+            })
         }
       },
     })
