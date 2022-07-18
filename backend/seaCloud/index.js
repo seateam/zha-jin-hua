@@ -37,8 +37,14 @@ const api = {
   async getRoom(event, context) {
     const rooms = db.collection('rooms')
     const where = rooms.where({ _id: event.roomCode })
-
-    return await where.get()
+    const res = await where.get()
+    if (res?.data) {
+      const list = res.data
+      if (list.length === 1) {
+        return list[0]
+      }
+    }
+    return null
   },
   async updateRoom(event, context) {
     const rooms = db.collection('rooms')
