@@ -131,6 +131,43 @@ Page({
     })
     this.initRoom(this.data.roomCode)
   },
+  reset() {
+    const roomCode = this.data.roomCode
+    wx.showModal({
+      title: '再来一局？',
+      content: '确定要重新洗牌',
+      success: (res) => {
+        if (res.confirm) {
+          wx.cloud
+            .callFunction({
+              name: 'seaCloud',
+              data: {
+                type: 'deleteRoom',
+                roomCode,
+              },
+            })
+            .then((res) => {
+              this.setData({
+                // init
+                inited: false,
+                // 所有用户
+                users: [
+                  {
+                    openid: '',
+                    name: '',
+                    avatar: '',
+                    pockers: [{}, {}, {}],
+                    date: 0,
+                  },
+                ],
+              })
+              this.initRoom(roomCode)
+            })
+        }
+      },
+    })
+  },
+
   formatColor(suit) {
     const dict = {
       Black: '',

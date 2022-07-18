@@ -1,16 +1,48 @@
-.own {
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  .own {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    .avatar {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+    .name {
+      margin-left: 7px;
+    }
+  }
+  .btns {
+    display: flex;
+    margin-right: 20px;
+    .btn + .btn {
+      margin-left: 40px;
+    }
+  }
+}
+
+.user-active {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   .avatar {
+    pointer-events: none;
     border-radius: 50%;
     width: 60px;
     height: 60px;
+    box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
   }
   .name {
+    pointer-events: none;
     margin-top: 4px;
   }
 }
+
 .pokers {
   margin-top: 44px;
   display: flex;

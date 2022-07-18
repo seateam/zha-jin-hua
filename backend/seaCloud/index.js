@@ -59,6 +59,11 @@ const api = {
       rooms.add({ data: event.room })
     }
   },
+  async deleteRoom(event, context) {
+    const rooms = db.collection('rooms')
+    const where = rooms.where({ _id: event.roomCode })
+    where.remove()
+  },
 }
 
 // 云函数入口函数

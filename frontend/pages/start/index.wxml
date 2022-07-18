@@ -1,6 +1,16 @@
-<view class="own" wx:if="{{own}}">
-  <image class="avatar" src="{{own.avatar}}" mode="aspectFill"></image>
-  <view class="name">{{own.name}}</view>
+<view class="header">
+  <view class="own" wx:if="{{own}}">
+    <image class="avatar" src="{{own.avatar}}" mode="aspectFill"></image>
+    <view class="name">{{own.name}}</view>
+  </view>
+  <view class="btns">
+    <view class="btn reset" bindtap="reset">再来一局</view>
+    <view class="btn refresh" bindtap="refresh">刷新</view>
+  </view>
+</view>
+<view class="user-active" wx:if="{{users[userIndex].openid}}">
+  <image class="avatar" src="{{users[userIndex].avatar}}" mode="aspectFill"></image>
+  <view class="name">{{users[userIndex].name}}</view>
 </view>
 <view class="pokers">
   <view class="poker" wx:for="{{users[userIndex].pockers}}" wx:key="index" style="color:{{item.color}}">
@@ -20,7 +30,7 @@
 </block>
 <button wx:else class="start" bindtap="start" disabled="{{!inited}}">发 牌</button>
 <!-- users -->
-<view class="users" bindtap="look">
+<view class="users" bindtap="look" wx:if="{{users.length > 1}}">
   <view class="user {{userIndex === index ? 'active': ''}}" wx:for="{{users}}" wx:key="index" data-i="{{index}}">
     <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
     <view class="name">{{item.name}}</view>
