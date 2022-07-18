@@ -59,28 +59,16 @@ Page({
 
       const index = this.data.users.findIndex((u) => !u.openid)
       if (index === -1) {
-        if (this.data.users.findIndex((u) => u.openid === openid) === -1) {
-          this.data.users.push({
-            openid,
-            name,
-            avatar,
-            date: dayjs().unix(),
-            pockers,
-            open: false,
-          })
-        } else {
-          wx.showToast({ title: '重复发牌', icon: 'none' })
-          return
-        }
-      } else {
-        this.data.users[index] = {
-          openid,
-          name,
-          avatar,
-          date: dayjs().unix(),
-          pockers,
-          open: false,
-        }
+        wx.showToast({ title: '未知错误', icon: 'none' })
+        return
+      }
+      this.data.users[index] = {
+        openid,
+        name,
+        avatar,
+        date: dayjs().unix(),
+        pockers,
+        open: false,
       }
       const room = {
         _id: this.data.roomCode,
@@ -200,18 +188,23 @@ Page({
         const room = res.result
         if (room) {
           const { pockersList, users } = room
+          let index = users.findIndex((u) => u.openid === this.data.own.openid)
+          if (index === -1) {
+            users.push({
+              openid: '',
+              name: '',
+              avatar: '',
+              pockers: [{}, {}, {}],
+              date: 0,
+            })
+            index = users.length - 1
+          }
           this.setData({
-            pockersList,
             users,
+            userIndex: index,
+            pockersList,
             inited: true,
           })
-
-          const index = users.findIndex((u) => u.openid === this.data.own.openid)
-          if (index !== -1) {
-            this.setData({
-              userIndex: index,
-            })
-          }
         } else {
           this.setData({
             pockersList: pockersDict,
